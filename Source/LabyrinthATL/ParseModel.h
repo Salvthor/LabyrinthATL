@@ -17,7 +17,7 @@
  *
  */
 UCLASS()
-class RUNNERSTHESIS_API UParseModel : public UBlueprintFunctionLibrary
+class LABYRINTHATL_API UParseModel : public UBlueprintFunctionLibrary
 {
 
 	GENERATED_BODY()

@@ -3,13 +3,13 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class RunnersThesisTarget : TargetRules
+public class LabyrinthATLTarget : TargetRules
 {
-	public RunnersThesisTarget(TargetInfo Target) : base(Target)
+	public LabyrinthATLTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V4;
 
-		ExtraModuleNames.AddRange( new string[] { "RunnersThesis" } );
+		ExtraModuleNames.AddRange( new string[] { "LabyrinthATL" } );
 	}
 }

@@ -16,7 +16,7 @@
  * 
  */
 UCLASS()
-class RUNNERSTHESIS_API UVITAMINAppLinker : public UBlueprintFunctionLibrary
+class LABYRINTHATL_API UVITAMINAppLinker : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 

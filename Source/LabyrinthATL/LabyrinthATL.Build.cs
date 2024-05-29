@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class RunnersThesis : ModuleRules
+public class LabyrinthATL : ModuleRules
 {
-	public RunnersThesis(ReadOnlyTargetRules Target) : base(Target)
+	public LabyrinthATL(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
