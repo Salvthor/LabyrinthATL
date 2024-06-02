@@ -24,3 +24,5 @@ W: Move forward
 S: Move backward
 A: Move left
 D: Move right
+
+E: Interact (Close the adjacent Door)
