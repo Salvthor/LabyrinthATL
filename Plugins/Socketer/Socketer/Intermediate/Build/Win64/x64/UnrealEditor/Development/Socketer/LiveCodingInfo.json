@@ -1,0 +1,13 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.Socketer.cpp.obj": [
+			"Socket.gen.cpp.obj",
+			"Socketer.init.gen.cpp.obj",
+			"SocketerBPLibrary.gen.cpp.obj",
+			"Socket.cpp.obj",
+			"Socketer.cpp.obj",
+			"SocketerBPLibrary.cpp.obj"
+		]
+	}
+}

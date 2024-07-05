@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-Socketer.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"D:\Progetti\Progetti Unreal\LabyrinthATL\Intermediate\Build\Win64\x64\LabyrinthATLEditor\Development\Engine\SharedPCH.Engine.Cpp20.InclOrderUnreal5_0.h.obj"
+"D:\Progetti\Progetti Unreal\LabyrinthATL\Plugins\Socketer\Socketer\Intermediate\Build\Win64\x64\UnrealEditor\Development\Socketer\Module.Socketer.cpp.obj"
+"D:\Progetti\Progetti Unreal\LabyrinthATL\Plugins\Socketer\Socketer\Intermediate\Build\Win64\x64\UnrealEditor\Development\Socketer\Default.rc2.res"
+/OUT:"D:\Progetti\Progetti Unreal\LabyrinthATL\Plugins\Socketer\Socketer\Intermediate\Build\Win64\x64\UnrealEditor\Development\Socketer\UnrealEditor-Socketer.lib"

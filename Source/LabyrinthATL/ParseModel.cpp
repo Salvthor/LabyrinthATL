@@ -3,7 +3,7 @@
 
 #include "ParseModel.h"
 
-void UParseModel::ReadFile(FString Directory, bool& Success, FString& OutInfoMessage, TArray<FString>& MStateActs, int& StateNumber, int& InitialState, int& AgentNum, TArray<FString>& AtomicProp, TArray<FString>& MLabelling)
+void UParseModel::ReadModel(FString Directory, bool& Success, FString& OutInfoMessage, TArray<FString>& MStateActs, int& StateNumber, int& InitialState, int& AgentNum, TArray<FString>& AtomicProp, TArray<FString>& MLabelling)
 {
 
 	TArray<FString> RetString, TmpStringArray;
@@ -102,14 +102,21 @@ void UParseModel::ReadNextActions(FString Directory, bool& bSuccess, FString& Ou
 			RetString = TmpStringArray;
 	}
 
+
+
 	for (int32 i = 0; i != RetString.Num(); i++)
 	{
 		Line = *RetString[i].TrimStartAndEnd();
 		Line.ParseIntoArrayWS(TmpStringArray);
 
 		FActionSeq actS;
-		actS.TargetState = FCString::Atoi(*TmpStringArray[1]);
-		actS.ActCombination = *ActToIntCombination.Find(*TmpStringArray[2]);
+		int rowElemNumb = ((TmpStringArray.Num() - 1) / 2) - 1;
+
+		for (int32 j = 0; j <= rowElemNumb; j++)
+		{
+			actS.TargetState.Add(FCString::Atoi(*TmpStringArray[(j * 2) + 1]));
+			actS.ActCombination.Add(*ActToIntCombination.Find(*TmpStringArray[(j * 2) + 2]));
+		}
 
 		ActSequence.Add(FCString::Atoi(*TmpStringArray[0]), actS);
 	}
@@ -125,19 +132,22 @@ void UParseModel::ReadNextActions(FString Directory, bool& bSuccess, FString& Ou
 	return;
 }
 
-void UParseModel::WriteFile(FString Directory, bool& bSuccess, FString& OutInfoMessage, TArray<FString> MStateActs, int StateNumber, int InitialState, int ActionNum, int AgentNum, TArray<FString> AtomicProp, TArray<FString> MLabelling)
+void UParseModel::WriteModel(FString& file, bool bWriteFile, FString Directory, bool& bSuccess, TArray<FString>& ModelTxt, FString& OutInfoMessage, TArray<FString> MStateActs, int StateNumber, int InitialState, int ActionNum, int AgentNum, TArray<FString> AtomicProp, TArray<FString> MLabelling)
 {
 	FString currentString = "WritingTest";
 	TArray <FString> writeToFile;
 	int CState = 0, CAction = 0, i = 0;
 
-	if (!FFileHelper::SaveStringToFile(currentString, *Directory))
+	if (bWriteFile == true)
 	{
-		bSuccess = false;
-		OutInfoMessage = FString::Printf(TEXT("Error: Could not Write To File - '%s'"), *Directory);
-		return;
-	}
 
+		if (!FFileHelper::SaveStringToFile(currentString, *Directory))
+		{
+			bSuccess = false;
+			OutInfoMessage = FString::Printf(TEXT("Error: Could not Write To File - '%s'"), *Directory);
+			return;
+		}
+	}
 
 	writeToFile.Add("Transition");
 	
@@ -150,7 +160,10 @@ void UParseModel::WriteFile(FString Directory, bool& bSuccess, FString& OutInfoM
 		if((ActionNum > 1) && (CAction < ActionNum - 1))
 			action = action.Append(",");
 
-		currentString = currentString.Append(action);
+		if(action.Find("0") >= 0)
+			currentString = currentString.Append("0");
+		else
+			currentString = currentString.Append(action);
 		CAction++;
 
 		if (CAction == ActionNum)
@@ -219,13 +232,28 @@ void UParseModel::WriteFile(FString Directory, bool& bSuccess, FString& OutInfoM
 	writeToFile.Add("Number_of_agents");
 	writeToFile.Add(FString::FromInt(AgentNum));
 
+	if (bWriteFile == true)
+		FFileHelper::SaveStringArrayToFile(writeToFile, *Directory);
+	else
+	{
+		int lastFileLen = 0;
 
-	FFileHelper::SaveStringArrayToFile(writeToFile, *Directory);
-
+		for (FString fstr : writeToFile)
+		{
+			file = file + fstr + "-";
+			if ((file.Len() - lastFileLen) > 3000)
+			{
+				file = file + "divider";
+				lastFileLen = file.Len();
+			}
+		}
+	}
 	bSuccess = true;
 	OutInfoMessage = FString::Printf(TEXT("Completed: File successfully written - '%s'"), *Directory);
+
 	return;
 }
+
 
 void UParseModel::ReadFormula(FString Directory, bool& Success, FString& OutInfoMessage, FString& FormulaString)
 {

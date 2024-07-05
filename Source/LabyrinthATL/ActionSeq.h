@@ -15,16 +15,16 @@ struct FActionSeq
     GENERATED_BODY()
 
     UPROPERTY(BlueprintReadWrite)
-    int TargetState = -1;
+    TArray<int32> TargetState;
 
     UPROPERTY(BlueprintReadWrite)
-    int ActCombination = -1;
+    TArray<int32> ActCombination;
 
-    FActionSeq() :
-        TargetState(-1), ActCombination(-1)
-    {}
 
-    FActionSeq(const int tState, const int ActComb): 
-        TargetState(tState), ActCombination(ActComb)
-    {}
+    FActionSeq() = default;
+
+    FActionSeq(const int tState, const int ActComb){
+        TargetState.Add(tState);
+        ActCombination.Add(ActComb);
+    }
 };
